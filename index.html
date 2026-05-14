@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gianluca Inguglia — Physicist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #090b0f;
+  --bg2:     #0e1117;
+  --bg3:     #13171f;
+  --text:    #e6e3dc;
+  --text2:   #96928c;
+  --text3:   #52504d;
+  --gold:    #c8a96e;
+  --gold2:   #dfc08a;
+  --blue:    #7eb8d4;
+  --green:   #8fb87a;
+  --border:  rgba(200,169,110,0.13);
+  --border2: rgba(200,169,110,0.07);
+  --serif:   'EB Garamond', Georgia, serif;
+  --sans:    'Instrument Sans', sans-serif;
+  --mono:    'DM Mono', monospace;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--serif);font-size:18px;line-height:1.75;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(9,11,15,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border2);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;}
+.nav-logo{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:0.08em;text-decoration:none;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-family:var(--sans);font-size:12px;font-weight:500;color:var(--text2);text-decoration:none;letter-spacing:0.07em;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--text2);}
+.mob-menu{display:none;position:fixed;top:58px;left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--border);padding:1.5rem 2rem;z-index:199;flex-direction:column;gap:1.25rem;}
+.mob-menu.open{display:flex;}
+.mob-menu a{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--text2);text-decoration:none;letter-spacing:0.07em;text-transform:uppercase;}
+
+/* ── UTILS ── */
+.wrap{max-width:1080px;margin:0 auto;}
+hr.rule{border:none;border-top:1px solid var(--border2);}
+.sec-label{font-family:var(--mono);font-size:11px;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;display:flex;align-items:center;gap:0.9rem;margin-bottom:1.2rem;}
+.sec-label::before{content:'';display:block;width:28px;height:1px;background:var(--gold);}
+h2{font-family:var(--serif);font-size:clamp(1.9rem,3vw,2.8rem);font-weight:400;color:var(--text);line-height:1.15;margin-bottom:2.5rem;}
+h3{font-family:var(--serif);font-size:1.35rem;font-weight:400;color:var(--text);margin-bottom:0.7rem;}
+p{margin-bottom:1rem;}
+p:last-child{margin-bottom:0;}
+a.ext{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(126,184,212,0.3);}
+a.ext:hover{border-color:var(--blue);}
+.btn{display:inline-block;font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;padding:9px 22px;border-radius:2px;text-decoration:none;transition:all 0.2s;cursor:pointer;border:none;}
+.btn-gold{background:var(--gold);color:#09090f;}
+.btn-gold:hover{background:var(--gold2);}
+.btn-out{background:transparent;color:var(--text2);border:1px solid var(--border);}
+.btn-out:hover{border-color:var(--gold);color:var(--gold);}
+.role-item{font-family:var(--sans);font-size:12px;color:var(--text2);display:flex;gap:0.5rem;}
+.role-item::before{content:'·';color:var(--gold);flex-shrink:0;}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;align-items:center;padding:80px 2.5rem 4rem;position:relative;overflow:hidden;}
+#starCanvas{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
+.hero-inner{display:grid;grid-template-columns:1fr 340px;gap:5rem;max-width:1080px;margin:0 auto;width:100%;align-items:center;position:relative;z-index:1;}
+.hero-eye{font-family:var(--mono);font-size:11px;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;display:flex;align-items:center;gap:0.9rem;margin-bottom:1.4rem;}
+.hero-eye::before{content:'';display:block;width:28px;height:1px;background:var(--gold);}
+h1{font-family:var(--serif);font-size:clamp(2.4rem,4vw,3.6rem);font-weight:400;line-height:1.12;color:var(--text);margin-bottom:1.4rem;}
+h1 em{font-style:italic;color:var(--gold);}
+.hero-bio{font-size:1rem;color:var(--text2);line-height:1.8;margin-bottom:2rem;max-width:500px;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2rem;}
+.tag{font-family:var(--mono);font-size:10px;color:var(--blue);border:1px solid rgba(126,184,212,0.28);border-radius:2px;padding:3px 9px;letter-spacing:0.04em;}
+.hero-ctas{display:flex;gap:0.75rem;flex-wrap:wrap;}
+.hero-photo{position:relative;}
+.hero-photo img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top center;filter:grayscale(15%) contrast(1.05);border:1px solid var(--border);}
+.photo-cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(9,11,15,0.95) 0%,transparent 100%);padding:2.5rem 1rem 0.9rem;font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:0.05em;}
+
+/* ── ABOUT ── */
+#about{padding:5rem 2.5rem;}
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:start;margin-bottom:3.5rem;}
+.about-text{color:var(--text2);font-size:0.98rem;}
+.timeline{display:flex;flex-direction:column;}
+.tl-item{display:grid;grid-template-columns:76px 1fr;gap:1.25rem;padding:1.1rem 0;border-bottom:1px solid var(--border2);align-items:start;}
+.tl-item:first-child{padding-top:0;}
+.tl-year{font-family:var(--mono);font-size:11px;color:var(--gold);padding-top:3px;}
+.tl-place{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--text);margin-bottom:1px;}
+.tl-role{font-family:var(--sans);font-size:12px;color:var(--text2);}
+
+/* Research pillars (inside About) */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border2);}
+.pillar{background:var(--bg2);padding:2rem 1.75rem;position:relative;}
+.p-bar{position:absolute;top:0;left:0;width:100%;height:2px;}
+.pillar:nth-child(1) .p-bar{background:var(--gold);}
+.pillar:nth-child(2) .p-bar{background:var(--blue);}
+.pillar:nth-child(3) .p-bar{background:var(--green);}
+.p-num{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:0.1em;display:block;margin-bottom:0.9rem;}
+.pillar h3{font-size:1.15rem;margin-bottom:0.6rem;}
+.pillar p{font-size:0.85rem;color:var(--text2);line-height:1.65;}
+.p-tags{display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:1rem;}
+.p-tag{font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:1px;}
+.pillar:nth-child(1) .p-tag{color:var(--gold);border:1px solid rgba(200,169,110,0.22);}
+.pillar:nth-child(2) .p-tag{color:var(--blue);border:1px solid rgba(126,184,212,0.22);}
+.pillar:nth-child(3) .p-tag{color:var(--green);border:1px solid rgba(143,184,122,0.22);}
+
+/* ── TOPIC ROWS (shared by Flavour, GW, AI) ── */
+.topics{display:flex;flex-direction:column;}
+.topic{display:grid;grid-template-columns:190px 1fr;gap:3rem;padding:3rem 0;border-bottom:1px solid var(--border2);align-items:start;}
+.topic:first-child{padding-top:0;}
+.topic-label{font-family:var(--mono);font-size:11px;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;padding-top:4px;line-height:1.6;}
+.topic-body{color:var(--text2);font-size:0.95rem;}
+.topic-body h3{color:var(--text);margin-bottom:0.75rem;}
+.topic-links{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem;}
+.topic-link{font-family:var(--mono);font-size:10px;color:var(--blue);border:1px solid rgba(126,184,212,0.28);padding:3px 10px;border-radius:1px;text-decoration:none;transition:background 0.2s;}
+.topic-link:hover{background:rgba(126,184,212,0.08);}
+
+/* ── SECTION WRAPPERS ── */
+.sec-light{padding:5rem 2.5rem;}
+.sec-dark{background:var(--bg2);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);padding:5rem 2.5rem;}
+
+/* ── GW ── */
+.gw-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:start;margin-bottom:3.5rem;}
+.gw-text{color:var(--text2);font-size:0.95rem;}
+.gw-text h3{color:var(--text);margin-top:1.5rem;margin-bottom:0.5rem;}
+.gw-box{background:var(--bg3);border:1px solid var(--border);border-radius:2px;padding:1.75rem;}
+.gw-box-label{font-family:var(--mono);font-size:10px;color:var(--blue);letter-spacing:0.09em;text-transform:uppercase;margin-bottom:0.75rem;}
+.gw-box p{font-size:0.88rem;color:var(--text2);margin-bottom:1rem;}
+.roles{display:flex;flex-direction:column;gap:0.55rem;margin-top:0.25rem;}
+.et-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border2);}
+.et-fact{background:var(--bg3);padding:1.5rem 1rem;text-align:center;}
+.et-num{font-family:var(--serif);font-size:1.7rem;color:var(--gold);line-height:1.1;margin-bottom:0.3rem;}
+.et-desc{font-family:var(--sans);font-size:11px;color:var(--text2);line-height:1.4;}
+
+/* ── GRANTS ── */
+.grants-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.25rem;}
+.grant-card{background:var(--bg3);border:1px solid var(--border2);border-radius:2px;padding:1.6rem;position:relative;}
+.grant-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);opacity:0.5;}
+.g-funder{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:0.09em;text-transform:uppercase;margin-bottom:0.4rem;}
+.g-title{font-family:var(--serif);font-size:1.05rem;color:var(--text);margin-bottom:0.5rem;line-height:1.3;}
+.g-desc{font-family:var(--sans);font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:0.75rem;}
+.g-link{font-family:var(--mono);font-size:10px;color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(126,184,212,0.3);}
+.g-link:hover{border-color:var(--blue);}
+
+/* ── PUBLICATIONS ── */
+.pub-list{display:flex;flex-direction:column;}
+.pub-item{display:grid;grid-template-columns:58px 1fr auto;gap:1.5rem;padding:1.35rem 0;border-bottom:1px solid var(--border2);align-items:start;}
+.pub-year{font-family:var(--mono);font-size:11px;color:var(--text3);padding-top:4px;}
+.pub-title{font-family:var(--serif);font-size:1rem;color:var(--text);margin-bottom:0.3rem;line-height:1.4;}
+.pub-meta{font-family:var(--sans);font-size:11px;color:var(--text3);}
+.pub-links{display:flex;flex-direction:column;gap:0.3rem;margin-top:2px;}
+.pub-link{font-family:var(--mono);font-size:10px;color:var(--blue);text-decoration:none;border:1px solid rgba(126,184,212,0.28);padding:3px 9px;border-radius:1px;text-align:center;white-space:nowrap;transition:background 0.2s;}
+.pub-link:hover{background:rgba(126,184,212,0.08);}
+.inspire-cta{text-align:center;margin-top:2.5rem;}
+
+/* ── OUTREACH / CONTACT ── */
+.outreach-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:4rem;}
+.outreach-text{color:var(--text2);font-size:0.95rem;}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;}
+.c-item{display:flex;flex-direction:column;gap:0.2rem;padding:1.1rem 0;border-bottom:1px solid var(--border2);}
+.c-label{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:0.09em;text-transform:uppercase;}
+.c-val{font-family:var(--sans);font-size:13px;color:var(--text);}
+.c-val a{color:var(--blue);text-decoration:none;}
+.c-val a:hover{text-decoration:underline;}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border2);padding:1.75rem 2.5rem;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:10px;color:var(--text3);}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.fu{opacity:0;animation:fadeUp 0.65s ease forwards;}
+.d1{animation-delay:0.05s}.d2{animation-delay:0.2s}.d3{animation-delay:0.35s}.d4{animation-delay:0.5s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  nav{padding:0 1.25rem;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  #hero{padding:72px 1.25rem 3rem;}
+  .hero-inner{grid-template-columns:1fr;gap:2.5rem;}
+  .hero-photo{max-width:240px;}
+  .sec-light,.sec-dark{padding:3.5rem 1.25rem;}
+  #about{padding:3.5rem 1.25rem;}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .pillars{grid-template-columns:1fr;}
+  .topic{grid-template-columns:1fr;gap:0.75rem;}
+  .gw-grid{grid-template-columns:1fr;gap:2rem;}
+  .et-strip{grid-template-columns:1fr 1fr;}
+  .grants-grid{grid-template-columns:1fr;}
+  .outreach-grid{grid-template-columns:1fr;gap:2rem;}
+  .contact-grid{grid-template-columns:1fr;gap:0;}
+  .pub-item{grid-template-columns:46px 1fr;}
+  .pub-links{display:none;}
+  footer{flex-direction:column;gap:0.4rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">G. Inguglia</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#flavour">Flavour</a></li>
+    <li><a href="#gw">Grav. Waves</a></li>
+    <li><a href="#ai">AI</a></li>
+    <li><a href="#grants">Grants</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#outreach">Outreach</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <a href="#about"        onclick="closeMenu()">About</a>
+  <a href="#flavour"      onclick="closeMenu()">Flavour Physics</a>
+  <a href="#gw"           onclick="closeMenu()">Gravitational Waves</a>
+  <a href="#ai"           onclick="closeMenu()">Artificial Intelligence</a>
+  <a href="#grants"       onclick="closeMenu()">Grants</a>
+  <a href="#publications" onclick="closeMenu()">Publications</a>
+  <a href="#outreach"     onclick="closeMenu()">Outreach</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<div id="hero">
+  <canvas id="starCanvas"></canvas>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eye fu">Group Leader · Marietta Blau Institute / ÖAW Vienna</div>
+      <h1 class="fu d1">Particle physics,<br>gravitational waves<br>&amp; <em>artificial intelligence</em></h1>
+      <p class="hero-bio fu d2">I am a European researcher and group leader at the Austrian Academy of Sciences, at the Marietta Blau Institute for particle physics (MBI) in Vienna. I study the smallest known objects in the universe — quarks and leptons at Belle II — and some of the heaviest, intermediate-mass black holes through gravitational waves. Artificial intelligence is the common thread across all my work.</p>
+      <div class="hero-tags fu d3">
+        <span class="tag">Belle II · KEK</span>
+        <span class="tag">Einstein Telescope</span>
+        <span class="tag">LVK / Virgo</span>
+        <span class="tag">ERC StG InterLeptons</span>
+        <span class="tag">IMBH Task Force</span>
+        <span class="tag">Deep Learning</span>
+        <span class="tag">Lepton Flavor</span>
+        <span class="tag">Dark Sector</span>
+      </div>
+      <div class="hero-ctas fu d4">
+        <a href="#about" class="btn btn-gold">Explore research</a>
+        <a href="https://www.gianlucainguglia.eu/.cm4all/uproc.php/0/CV_2025_short-3.pdf?cdp=a" target="_blank" class="btn btn-out">Download CV</a>
+        <a href="#outreach" class="btn btn-out">Contact</a>
+      </div>
+    </div>
+    <div class="hero-photo fu d2">
+      <img src="https://www.gianlucainguglia.eu/.cm4all/uproc.php/0/.20230915_084641-EDIT-2.jpg/picture-200?_=19299314cf0" alt="Gianluca Inguglia" onerror="this.style.display='none'">
+      <div class="photo-cap">Vienna · ÖAW · 2023</div>
+    </div>
+  </div>
+</div>
+
+<hr class="rule">
+
+<!-- ═══ 01 ABOUT ═══ -->
+<section id="about">
+<div class="wrap">
+  <div class="sec-label">01 — About</div>
+  <h2>Who I am</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I am a European researcher and group leader at the Marietta Blau Institute for particle physics (MBI) of the Austrian Academy of Sciences (ÖAW) in Vienna — previously also known as the Institute of High Energy Physics (HEPHY).</p>
+      <p>My research focuses on two main areas with a common pillar. First, I study the smallest known objects in the universe — quarks and leptons — searching for anomalies in their behaviour that could point to new forces of nature, unknown particles, or other unexplained phenomena, using the Belle II experiment. Second, I coordinate gravitational wave research at MBI, leading the local Einstein Telescope Research Unit and the Virgo Group, developing analyses of intermediate-mass black holes and other compact objects using their gravitational wave signatures.</p>
+      <p>The common pillar across both areas is the development and use of advanced analysis methodologies based on artificial intelligence, machine and deep learning.</p>
+      <p>I am originally from Palermo, Sicily, and studied Astronomy at the University of Bologna (BSc, 2008), Nuclear Physics in Groningen (MSc, 2011), and Particle Physics in London (PhD, 2014). Afterwards, I worked as a postdoctoral fellow at DESY on the Belle II experiment (Hamburg, 2014) before joining the Austrian Academy of Sciences in Vienna, where I have led my research since 2017.</p>
+      <a href="https://www.gianlucainguglia.eu/.cm4all/uproc.php/0/CV_2025_short-3.pdf?cdp=a" target="_blank" class="btn btn-out" style="margin-top:1.25rem;">Download CV</a>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tl-year">2017 –</span>
+        <div><div class="tl-place">Vienna, Austria</div><div class="tl-role">Group Leader, MBI / ÖAW</div></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">2014</span>
+        <div><div class="tl-place">Hamburg, Germany</div><div class="tl-role">Postdoctoral Fellow, DESY — Belle II</div></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">2014</span>
+        <div><div class="tl-place">London, UK</div><div class="tl-role">PhD, Particle Physics — Queen Mary University of London</div></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">2011</span>
+        <div><div class="tl-place">Groningen, Netherlands</div><div class="tl-role">MSc, Nuclear Physics — University of Groningen</div></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">2008</span>
+        <div><div class="tl-place">Bologna, Italy</div><div class="tl-role">BSc, Astronomy — University of Bologna</div></div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">origin</span>
+        <div><div class="tl-place">Palermo, Sicily</div><div class="tl-role">Born in Sicily, Italy</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Research pillars summary -->
+  <div class="pillars">
+    <div class="pillar">
+      <div class="p-bar"></div>
+      <span class="p-num">01</span>
+      <h3>Flavour Physics</h3>
+      <p>Rare B-meson decays, tau lepton properties, lepton flavor universality, and dark sector searches at Belle II — a high-precision window onto new forces and particles beyond the Standard Model.</p>
+      <div class="p-tags">
+        <span class="p-tag">B→K(*)νν̄</span><span class="p-tag">EW Penguins</span>
+        <span class="p-tag">Tau LFU</span><span class="p-tag">Dark Sector</span>
+        <span class="p-tag">Z′ Searches</span>
+      </div>
+    </div>
+    <div class="pillar">
+      <div class="p-bar"></div>
+      <span class="p-num">02</span>
+      <h3>Gravitational Waves</h3>
+      <p>IMBH and compact object detection, Einstein Telescope science, LVK burst searches, and black hole population studies. Coordinator of the IMBH task force in the ET Observational Science Board.</p>
+      <div class="p-tags">
+        <span class="p-tag">IMBH Detection</span><span class="p-tag">Einstein Telescope</span>
+        <span class="p-tag">LVK Bursts</span><span class="p-tag">ET Task Force</span>
+      </div>
+    </div>
+    <div class="pillar">
+      <div class="p-bar"></div>
+      <span class="p-num">03</span>
+      <h3>Artificial Intelligence</h3>
+      <p>Developing bespoke ML tools: Punzi-nets, convolutional autoencoders, weakly supervised anomaly detectors, and hardware neural-network triggers — AI as a precision instrument for frontier physics.</p>
+      <div class="p-tags">
+        <span class="p-tag">Punzi-nets</span><span class="p-tag">Conv. AE</span>
+        <span class="p-tag">Weakly Supervised</span><span class="p-tag">HW NN Trigger</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border2);display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
+    <span style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;">Funded by</span>
+    <span style="font-family:var(--sans);font-size:12px;color:var(--text2);">Austrian Academy of Sciences</span>
+    <span style="color:var(--text3);">·</span>
+    <a href="https://cordis.europa.eu/project/id/947006" target="_blank" style="font-family:var(--sans);font-size:12px;color:var(--text2);text-decoration:none;border-bottom:1px solid var(--border);">ERC StG InterLeptons, grant nr. 947006</a>
+    <span style="color:var(--text3);">·</span>
+    <span style="font-family:var(--sans);font-size:12px;color:var(--text2);">Austrian Science Fund FWF</span>
+  </div>
+</div>
+</section>
+
+<hr class="rule">
+
+<!-- ═══ 02 FLAVOUR PHYSICS ═══ -->
+<div id="flavour" class="sec-dark">
+<div class="wrap">
+  <div class="sec-label">02 — Flavour Physics</div>
+  <h2>Quarks &amp; leptons at Belle II</h2>
+  <div class="topics">
+
+    <div class="topic">
+      <div class="topic-label">Electroweak<br>Penguins &amp;<br>B→K(*)νν̄</div>
+      <div class="topic-body">
+        <h3>Flavour-changing neutral currents</h3>
+        <p>Flavour-changing neutral currents (FCNCs) are rare processes forbidden at tree level in the Standard Model, proceeding instead via quantum loops — electroweak penguin diagrams. These suppressed processes are exquisitely sensitive to new physics: new heavy particles such as new vector bosons might be exchanged in the loops, modifying decay rates or angular distributions of final states.</p>
+        <p>The weak decay B⁺→K⁺νν̄ is a prime example: with large missing energy from the neutrino pair, it is extremely challenging to detect and accessible only at B factories. A significant tension has emerged between the observed branching fraction and the Standard Model prediction. I use inclusive reconstruction techniques to investigate this process using Belle data, and I am preparing new measurements at Belle II. Confirming this tension would point towards new physics, possibly connected to a dark sector.</p>
+        <div class="topic-links">
+          <a class="topic-link" href="https://journals.aps.org/prd/abstract/10.1103/PhysRevD.109.075008" target="_blank">PRD · Light new physics in B→Kνν?</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-label">Tau Lepton &amp;<br>Lepton Flavor<br>Universality</div>
+      <div class="topic-body">
+        <h3>World's most precise test of LFU in τ decays</h3>
+        <p>The tau lepton is the heaviest of the six leptons and the only one that can decay to quarks, making it a powerful probe of the Standard Model. The SM predicts that the weak bosons couple equally to all lepton generations — lepton flavor universality (LFU). Any deviation is an unambiguous sign of new physics.</p>
+        <p>I coordinated the world's most precise test of LFU in leptonic tau decays at Belle II, using a neural network and the 1×1 tau decay topology, comparing the decay rates τ→μνν̄ and τ→eνν̄. At the current precision, the result strikingly confirms the SM prediction — but is not yet conclusive. New measurements using different topologies, which I am also coordinating, will sharpen the picture further.</p>
+        <div class="topic-links">
+          <a class="topic-link" href="https://arxiv.org/abs/2405.14625" target="_blank">arXiv:2405.14625</a>
+          <a class="topic-link" href="https://link.springer.com/article/10.1007/JHEP08(2024)205" target="_blank">JHEP 2024</a>
+          <a class="topic-link" href="https://www.annualreviews.org/content/journals/10.1146/annurev-nucl-110121-051223" target="_blank">Ann. Rev. NPS · LFU Review</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-label">Dark Sector<br>Searches</div>
+      <div class="topic-body">
+        <h3>Searching for light dark matter at Belle II</h3>
+        <p>The failure of WIMP dark matter candidates — including supersymmetric neutralinos — has prompted a rethink of dark matter paradigms. The dark sector posits a new set of particles and interactions in the sub-GeV mass range, directly accessible at Belle II's high luminosity.</p>
+        <p>I have coordinated several dark sector searches at Belle II: invisible decays of a light Z′ boson, muonic Z′ decays, and associated production of an invisible Dark Higgs boson with a dark photon decaying to muons. No new particles were found, but we have excluded wide ranges of parameter space — masses and couplings — that these hypothetical states could occupy. Each search also drives novel analysis methodology that extends well beyond the individual result.</p>
+        <div class="topic-links">
+          <a class="topic-link" href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.130.231801" target="_blank">PRL · Invisible Z′</a>
+          <a class="topic-link" href="https://journals.aps.org/prd/abstract/10.1103/PhysRevD.109.112015" target="_blank">PRD · μ⁺μ⁻ resonance</a>
+          <a class="topic-link" href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.130.071804" target="_blank">PRL · Dark Higgs + dark photon</a>
+          <a class="topic-link" href="https://journals.aps.org/prd/abstract/10.1103/PhysRevD.106.L031703" target="_blank">PRD · Z′ &amp; b→sℓ⁺ℓ⁻</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ═══ 03 GRAVITATIONAL WAVES ═══ -->
+<section id="gw" class="sec-light">
+<div class="wrap">
+  <div class="sec-label">03 — Gravitational Waves</div>
+  <h2>Black holes &amp; spacetime</h2>
+  <div class="gw-grid">
+    <div class="gw-text">
+      <p>According to Einstein's general theory of relativity, gravity is the result of spacetime curvature caused by mass and energy. When massive objects accelerate — as in two black holes orbiting in a binary system — they create ripples in spacetime that propagate at the speed of light: gravitational waves. When these pass through a laser interferometer, they stretch and contract its arms, producing a detectable interference signal from which the source properties can be inferred.</p>
+      <h3>Intermediate-mass black holes and other compact objects</h3>
+      <p>Intermediate-mass black holes (IMBHs, 100–10,000 M☉) and other compact objects remain among the least understood in the universe. My group develops AI-based detection pipelines — including weakly supervised convolutional autoencoders — to identify their merger signals in gravitational wave data. This work, published in Physics Letters B, demonstrates that anomaly detection techniques can recover signals in Einstein Telescope noise without explicit signal models.</p>
+      <h3>The Einstein Telescope</h3>
+      <p>The Einstein Telescope is a proposed underground third-generation GW observatory to be built in Europe (candidate sites: Sardinia and the Euregio Meuse-Rhine), operating after 2035. It will detect one GW event every ~30 seconds — making current parameter estimation methods computationally impossible without AI. ET will enable population studies of black holes across cosmic ages, reaching redshifts up to z ~ 100. I coordinate the IMBH task force within the ET Observational Science Board.</p>
+      <h3>LVK / Virgo</h3>
+      <p>I also participate in the current generation of GW science through the LIGO-Virgo-KAGRA collaboration, contributing to burst searches for unmodelled GW transients.</p>
+    </div>
+    <div>
+      <div class="gw-box">
+        <div class="gw-box-label">My roles in GW science</div>
+        <div class="roles">
+          <div class="role-item">IMBH Task Force Coordinator — ET OSB</div>
+          <div class="role-item">Lead, ET Research Unit at MBI / ÖAW</div>
+          <div class="role-item">Lead, Virgo Group at MBI / ÖAW</div>
+          <div class="role-item">LIGO-Virgo-KAGRA Collaboration member</div>
+          <div class="role-item">Burst search working group</div>
+          <div class="role-item">PyCBC matched-filter analyses</div>
+        </div>
+        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border2);">
+          <div class="gw-box-label">Interactive BH waveform explorer</div>
+          <p>Explore how BBH merger waveforms change with component masses, distance, inclination, and ringdown timescale. Apply detector bandwidth cuts and listen to the sonified chirp.</p>
+          <a href="https://github.com/ginguglia/bh-waveform-applet" target="_blank" class="btn btn-out" style="font-size:11px;">Open on GitHub →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="et-strip">
+    <div class="et-fact"><div class="et-num">10 km</div><div class="et-desc">Arm length per interferometer in the ET triangular configuration</div></div>
+    <div class="et-fact"><div class="et-num">15 km</div><div class="et-desc">Arm length in the ET L-shaped configuration</div></div>
+    <div class="et-fact"><div class="et-num">z ~ 100</div><div class="et-desc">Maximum redshift reach — population studies across cosmic ages</div></div>
+    <div class="et-fact"><div class="et-num">1 / 30 s</div><div class="et-desc">Expected GW detection rate — one event every ~30 seconds</div></div>
+    <div class="et-fact"><div class="et-num">post-2035</div><div class="et-desc">Planned operational start for this third-generation detector</div></div>
+  </div>
+</div>
+</section>
+
+<hr class="rule">
+
+<!-- ═══ 04 ARTIFICIAL INTELLIGENCE ═══ -->
+<div id="ai" class="sec-dark">
+<div class="wrap">
+  <div class="sec-label">04 — Artificial Intelligence</div>
+  <h2>AI at the frontier of physics</h2>
+  <p style="color:var(--text2);font-size:0.98rem;max-width:700px;margin-bottom:3rem;margin-top:-1.5rem;">Artificial intelligence is not a tool I apply after the physics is done — it is embedded in how I formulate the problems themselves. From the design of optimal search strategies at Belle II to the detection of gravitational wave signals without explicit signal models, AI and deep learning are the methodological core of my research programme.</p>
+  <div class="topics">
+
+    <div class="topic">
+      <div class="topic-label">Punzi-nets &amp;<br>Optimal Search<br>Sensitivity</div>
+      <div class="topic-body">
+        <h3>Punzi-loss: end-to-end optimisation for discovery</h3>
+        <p>The Punzi figure of merit is the standard sensitivity metric in searches for new particles at B factories, but it is non-differentiable and thus cannot be used directly as a loss function in neural network training. I developed Punzi-loss — a smooth approximation that allows end-to-end optimisation of neural networks directly for discovery sensitivity, rather than for classification accuracy.</p>
+        <p>This approach, published in EPJC, was adopted across multiple Belle II analyses and represents a principled departure from surrogate metrics. Rather than training a network to classify signal from background and then optimising a cut, Punzi-nets optimise directly for what matters: the ability to claim a discovery.</p>
+        <div class="topic-links">
+          <a class="topic-link" href="https://arxiv.org/abs/2110.00810" target="_blank">arXiv:2110.00810</a>
+          <a class="topic-link" href="https://epjc.epj.org/articles/epjc/abs/2022/02/10052_2022_Article_10070/10052_2022_Article_10070.html" target="_blank">EPJC · Punzi-loss</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-label">Anomaly Detection<br>for Gravitational<br>Waves</div>
+      <div class="topic-body">
+        <h3>Weakly supervised convolutional autoencoder for IMBH detection</h3>
+        <p>Searching for intermediate-mass black hole mergers in gravitational wave data is challenging because the signals are rare, poorly modelled, and buried in non-Gaussian detector noise. I developed a weakly supervised convolutional autoencoder (CAE) that learns a model of detector noise and flags deviations consistent with compact binary coalescences — without being trained on signal waveforms.</p>
+        <p>This approach, published in Physics Letters B, demonstrated efficient IMBH recovery in simulated Einstein Telescope data and establishes a blueprint for model-agnostic GW searches at next-generation detectors. The method is particularly powerful for signals where matched filtering is impractical due to incomplete waveform models or the sheer volume of expected events.</p>
+        <div class="topic-links">
+          <a class="topic-link" href="https://arxiv.org/abs/2511.13154" target="_blank">arXiv:2511.13154</a>
+          <a class="topic-link" href="https://www.sciencedirect.com/science/article/pii/S0370269326001267" target="_blank">PLB · Anomaly detection pipeline</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-label">Hardware Neural<br>Network Trigger</div>
+      <div class="topic-body">
+        <h3>Real-time deep learning at 30 MHz</h3>
+        <p>At Belle II, the first hardware trigger level must make real-time decisions at the 30 MHz bunch-crossing rate of the SuperKEKB collider, with a latency of microseconds. I contributed to the development and commissioning of a neural network implemented directly in FPGA firmware — the first hardware NN trigger at a B factory.</p>
+        <p>This work, published in NIMA, demonstrates that deep learning can operate at the extreme speed and latency constraints of real particle physics experiments. It opens the door to AI-driven data selection at the earliest stage of the acquisition chain, reducing data volume while preserving rare signal events that classical trigger logic would discard.</p>
+        <div class="topic-links">
+          <a class="topic-link" href="https://arxiv.org/abs/2402.14962" target="_blank">arXiv:2402.14962</a>
+          <a class="topic-link" href="https://www.sciencedirect.com/science/article/pii/S0168900224002924" target="_blank">NIMA · Hardware NN trigger</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ═══ 05 GRANTS ═══ -->
+<section id="grants" class="sec-light">
+<div class="wrap">
+  <div class="sec-label">05 — Funding</div>
+  <h2>Grants &amp; support</h2>
+  <div class="grants-grid">
+    <div class="grant-card">
+      <div class="g-funder">European Research Council</div>
+      <div class="g-title">ERC Starting Grant — InterLeptons</div>
+      <div class="g-desc">Grant nr. 947006. World-leading measurements in lepton flavor universality and rare B-meson decays at Belle II, including the world's most precise test of LFU in leptonic tau decays and multiple dark sector searches.</div>
+      <a href="https://cordis.europa.eu/project/id/947006" target="_blank" class="g-link">cordis.europa.eu →</a>
+    </div>
+    <div class="grant-card">
+      <div class="g-funder">Austrian Science Fund — FWF</div>
+      <div class="g-title">Improved search for B⁺→K⁺νν̄ at Belle II</div>
+      <div class="g-desc">Grant PAT1823724 · ongoing (2025–2029) · €360,940. Investigating the tension between the observed B⁺→K⁺νν̄ branching fraction and Standard Model predictions, using deep neural networks and inclusive tagging on Belle II data.</div>
+      <a href="https://www.fwf.ac.at/en/research-radar/10.55776/PAT1823724" target="_blank" class="g-link">fwf.ac.at →</a>
+    </div>
+    <div class="grant-card">
+      <div class="g-funder">Austrian Science Fund — FWF</div>
+      <div class="g-title">Searches for Dark Matter and Dark Forces at Belle II</div>
+      <div class="g-desc">Grant P31361 · completed (2018–2023) · €278,334. Pioneering searches for dark sector particles at Belle II, including the first paper published by Belle II (PRL, 2020) and multiple exclusions of dark Z′ and dark Higgs parameter space.</div>
+      <a href="https://www.fwf.ac.at/en/research-radar/10.55776/P31361" target="_blank" class="g-link">fwf.ac.at →</a>
+    </div>
+    <div class="grant-card">
+      <div class="g-funder">Austrian Academy of Sciences</div>
+      <div class="g-title">ÖAW Core Funding</div>
+      <div class="g-desc">Institutional support for the MBI research unit, enabling sustained research in both flavour physics and gravitational wave science.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<hr class="rule">
+
+<!-- ═══ 06 PUBLICATIONS ═══ -->
+<div id="publications" class="sec-dark">
+<div class="wrap">
+  <div class="sec-label">06 — Publications</div>
+  <h2>Selected papers</h2>
+  <p style="color:var(--text2);font-size:0.95rem;margin-bottom:2.5rem;margin-top:-1.5rem;">I have co-authored several hundred scientific papers. A curated selection is listed below; the complete list is on INSPIRE-HEP.</p>
+  <div class="pub-list">
+
+    <div class="pub-item">
+      <span class="pub-year">2026</span>
+      <div><div class="pub-title">The Science of the Einstein Telescope</div><div class="pub-meta">ET Collaboration · arXiv:2503.12263</div></div>
+      <div class="pub-links"><a class="pub-link" href="https://arxiv.org/abs/2503.12263" target="_blank">arXiv</a></div>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-year">2025</span>
+      <div><div class="pub-title">Towards an anomaly detection pipeline for gravitational waves at the Einstein Telescope</div><div class="pub-meta">Physics Letters B · G. Inguglia et al. · arXiv:2511.13154</div></div>
+      <div class="pub-links">
+        <a class="pub-link" href="https://arxiv.org/abs/2511.13154" target="_blank">arXiv</a>
+        <a class="pub-link" href="https://www.sciencedirect.com/science/article/pii/S0370269326001267" target="_blank">PLB</a>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-year">2025</span>
+      <div><div class="pub-title">Adaptive scattered light noise subtraction in gravitational wave detectors</div><div class="pub-meta">Classical and Quantum Gravity</div></div>
+      <div class="pub-links"><a class="pub-link" href="https://iopscience.iop.org/article/10.1088/1361-6382/ae0c50" target="_blank">CQG</a></div>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-year">2024</span>
+      <div><div class="pub-title">Test of light-lepton universality in τ decays with the Belle II experiment</div><div class="pub-meta">JHEP · Belle II Collaboration · arXiv:2405.14625</div></div>
+      <div class="pub-links">
+        <a class="pub-link" href="https://arxiv.org/abs/2405.14625" target="_blank">arXiv</a>
+        <a class="pub-link" href="https://link.springer.com/article/10.1007/JHEP08(2024)205" target="_blank">JHEP</a>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-year">2024</span>
+      <div><div class="pub-title">Light new physics in B→Kνν̄?</div><div class="pub-meta">Physical Review D · arXiv:2311.14629</div></div>
+      <div class="pub-links">
+        <a class="pub-link" href="https://arxiv.org/abs/2311.14629" target="_blank">arXiv</a>
+        <a class="pub-link" href="https://journals.aps.org/prd/abstract/10.1103/PhysRevD.109.075008" target="_blank">PRD</a>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-year">2024</span>
+      <div><div class="pub-title">The neural network first-level hardware track trigger of the Belle II experiment</div><div class="pub-meta">NIMA · arXiv:2402.14962</div></div>
+      <div class="pub-links"><a class="pub-link" href="https://arxiv.org/abs/2402.14962" target="_blank">arXiv</a></div>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-year">2024</span>
+      <div><div class="pub-title">Search for a μ⁺μ⁻ resonance in four-muon final states at Belle II</div><div class="pub-meta">Physical Review D · Belle II Collaboration · arXiv:2403.02841</div></div>
+      <div class="pub-links">
+        <a class="pub-link" href="https://arxiv.org/abs/2403.02841" target="_blank">arXiv</a>
+        <a class="pub-link" href="https://journals.aps.org/prd/abstract/10.1103/PhysRevD.109.112015" target="_blank">PRD</a>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-year">2023</span>
+      <div><div class="pub-title">Search for an invisible Z′ in a final state with two muons and missing energy at Belle II</div><div class="pub-meta">Physical Review Letters · Belle II Collaboration · arXiv:2212.03066</div></div>
+      <div class="pub-links">
+        <a class="pub-link" href="https://arxiv.org/abs/2212.03066" target="_blank">arXiv</a>
+        <a class="pub-link" href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.130.231801" target="_blank">PRL</a>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-year">2023</span>
+      <div><div class="pub-title">Search for a dark photon and an invisible dark Higgs boson in μ⁺μ⁻ and missing energy final states with the Belle II experiment</div><div class="pub-meta">Physical Review Letters · Belle II Collaboration · arXiv:2207.00509</div></div>
+      <div class="pub-links">
+        <a class="pub-link" href="https://arxiv.org/abs/2207.00509" target="_blank">arXiv</a>
+        <a class="pub-link" href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.130.071804" target="_blank">PRL</a>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-year">2022</span>
+      <div><div class="pub-title">Snowmass White Paper: Belle II physics reach and plans for the next decade and beyond</div><div class="pub-meta">Belle II Collaboration · arXiv:2207.06307</div></div>
+      <div class="pub-links"><a class="pub-link" href="https://arxiv.org/abs/2207.06307" target="_blank">arXiv</a></div>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-year">2022</span>
+      <div><div class="pub-title">Testing lepton flavor universality with pion, kaon, tau, and beta decays</div><div class="pub-meta">Annual Review of Nuclear and Particle Science · arXiv:2111.05338</div></div>
+      <div class="pub-links">
+        <a class="pub-link" href="https://arxiv.org/abs/2111.05338" target="_blank">arXiv</a>
+        <a class="pub-link" href="https://www.annualreviews.org/content/journals/10.1146/annurev-nucl-110121-051223" target="_blank">Ann. Rev.</a>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-year">2022</span>
+      <div><div class="pub-title">Towards excluding a light Z′ explanation of b→sℓ⁺ℓ⁻</div><div class="pub-meta">Physical Review D (Letter) · arXiv:2202.12900</div></div>
+      <div class="pub-links">
+        <a class="pub-link" href="https://arxiv.org/abs/2202.12900" target="_blank">arXiv</a>
+        <a class="pub-link" href="https://journals.aps.org/prd/pdf/10.1103/PhysRevD.106.L031703" target="_blank">PRD</a>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-year">2022</span>
+      <div><div class="pub-title">Punzi-loss: a non-differentiable metric approximation for sensitivity optimisation in the search for new particles</div><div class="pub-meta">European Physical Journal C · arXiv:2110.00810</div></div>
+      <div class="pub-links">
+        <a class="pub-link" href="https://arxiv.org/abs/2110.00810" target="_blank">arXiv</a>
+        <a class="pub-link" href="https://epjc.epj.org/articles/epjc/abs/2022/02/10052_2022_Article_10070/10052_2022_Article_10070.html" target="_blank">EPJC</a>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-year">2020</span>
+      <div><div class="pub-title">Search for an invisibly decaying Z′ boson at Belle II in e⁺e⁻→μ⁺μ⁻(e±μ∓) plus missing energy final states</div><div class="pub-meta">Physical Review Letters · Belle II Collaboration · arXiv:1912.11276</div></div>
+      <div class="pub-links">
+        <a class="pub-link" href="https://arxiv.org/abs/1912.11276" target="_blank">arXiv</a>
+        <a class="pub-link" href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.124.141801" target="_blank">PRL</a>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <span class="pub-year">2011</span>
+      <div><div class="pub-title">Time-dependent CP asymmetries in D and B decays</div><div class="pub-meta">Physical Review D · arXiv:1106.5075</div></div>
+      <div class="pub-links">
+        <a class="pub-link" href="https://arxiv.org/abs/1106.5075" target="_blank">arXiv</a>
+        <a class="pub-link" href="https://journals.aps.org/prd/abstract/10.1103/PhysRevD.84.114009" target="_blank">PRD</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="inspire-cta">
+    <a href="https://inspirehep.net/authors/1259307" target="_blank" class="btn btn-out">Full publication list on INSPIRE-HEP →</a>
+  </div>
+</div>
+</div>
+
+<!-- ═══ 07 OUTREACH & CONTACT ═══ -->
+<section id="outreach" class="sec-light">
+<div class="wrap">
+  <div class="sec-label">07 — Outreach</div>
+  <h2>Science for everyone</h2>
+  <div class="outreach-grid">
+    <div class="outreach-text">
+      <p>Outreach is a core part of a researcher's responsibility, not an afterthought. Working with public funding means communicating the purpose, methods, and implications of research to the general public is both a duty and a privilege.</p>
+      <p>My team and I take outreach seriously and regularly share our results with the public. If you want to hear more at one of your events, do not hesitate to contact me.</p>
+      <p>I am a member of the <em>Società Italiana di Fisica</em>.</p>
+    </div>
+    <div>
+      <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:2px;padding:1.75rem;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:0.09em;text-transform:uppercase;margin-bottom:1rem;">Topics I speak about</div>
+        <div style="display:flex;flex-direction:column;gap:0.55rem;">
+          <div class="role-item">Gravitational waves and the Einstein Telescope</div>
+          <div class="role-item">Black holes across the mass spectrum</div>
+          <div class="role-item">The Standard Model and its open questions</div>
+          <div class="role-item">Dark matter: what we know and don't know</div>
+          <div class="role-item">Artificial intelligence in fundamental physics</div>
+          <div class="role-item">Matter, antimatter, and the origin of the universe</div>
+        </div>
+        <div style="margin-top:1.5rem;">
+          <a href="mailto:gianluca.inguglia@oeaw.ac.at" class="btn btn-gold" style="font-size:11px;">Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="rule" style="margin-bottom:3rem;">
+
+  <div class="sec-label">Contact</div>
+  <div class="contact-grid">
+    <div>
+      <div class="c-item">
+        <span class="c-label">Email</span>
+        <span class="c-val"><a href="mailto:gianluca.inguglia@oeaw.ac.at">gianluca.inguglia@oeaw.ac.at</a></span>
+      </div>
+      <div class="c-item">
+        <span class="c-label">Institution</span>
+        <span class="c-val">Marietta Blau Institute for Particle Physics<br>Austrian Academy of Sciences (ÖAW)</span>
+      </div>
+      <div class="c-item">
+        <span class="c-label">Location</span>
+        <span class="c-val">Vienna, Austria</span>
+      </div>
+      <div class="c-item">
+        <span class="c-label">CV</span>
+        <span class="c-val"><a href="https://www.gianlucainguglia.eu/.cm4all/uproc.php/0/CV_2025_short-3.pdf?cdp=a" target="_blank">Download PDF</a></span>
+      </div>
+    </div>
+    <div>
+      <div class="c-item">
+        <span class="c-label">INSPIRE-HEP</span>
+        <span class="c-val"><a href="https://inspirehep.net/authors/1259307" target="_blank">inspirehep.net/authors/1259307</a></span>
+      </div>
+      <div class="c-item">
+        <span class="c-label">GitHub</span>
+        <span class="c-val"><a href="https://github.com/ginguglia" target="_blank">github.com/ginguglia</a></span>
+      </div>
+      <div class="c-item">
+        <span class="c-label">Collaborations</span>
+        <span class="c-val">Belle II · Virgo · Einstein Telescope · LVK</span>
+      </div>
+      <div class="c-item">
+        <span class="c-label">Memberships</span>
+        <span class="c-val">Società Italiana di Fisica · ÖAW</span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <span>© 2025 Gianluca Inguglia</span>
+  <span>Marietta Blau Institute · Austrian Academy of Sciences · Vienna</span>
+</footer>
+
+<script>
+function toggleMenu(){ document.getElementById('mobMenu').classList.toggle('open'); }
+function closeMenu(){ document.getElementById('mobMenu').classList.remove('open'); }
+
+/* Star field */
+const canvas = document.getElementById('starCanvas');
+const ctx = canvas.getContext('2d');
+let stars = [];
+function resize(){ canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+function init(){
+  stars = [];
+  const n = Math.floor(canvas.width * canvas.height / 3800);
+  for(let i=0;i<n;i++) stars.push({ x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.3, a:Math.random()*0.7+0.1 });
+}
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(const s of stars){ ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fillStyle=`rgba(230,227,220,${s.a})`; ctx.fill(); }
+}
+resize(); init(); draw();
+window.addEventListener('resize',()=>{ resize(); init(); draw(); });
+
+/* Scroll reveal */
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }});
+},{ threshold:0.07 });
+document.querySelectorAll('.pillar,.grant-card,.pub-item,.tl-item,.topic,.et-fact').forEach(el=>{
+  el.style.opacity='0'; el.style.transform='translateY(14px)';
+  el.style.transition='opacity 0.55s ease, transform 0.55s ease';
+  obs.observe(el);
+});
+</script>
+</body>
+</html>
