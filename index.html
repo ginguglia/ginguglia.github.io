@@ -135,6 +135,7 @@ h1 em{font-style:italic;color:var(--gold);}
 .news-meta{display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;}
 .news-date{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:0.06em;}
 .news-pill{font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:1px;letter-spacing:0.04em;}
+.news-pill.code{color:#d47f7f;border:1px solid rgba(212,127,127,0.28);}
 .news-pill.paper{color:var(--gold);border:1px solid rgba(200,169,110,0.28);}
 .news-pill.workshop{color:var(--blue);border:1px solid rgba(126,184,212,0.28);}
 .news-pill.teaching{color:var(--green);border:1px solid rgba(143,184,122,0.28);}
@@ -249,13 +250,20 @@ footer{border-top:1px solid var(--border2);padding:1.75rem 2.5rem;display:flex;j
 </div>
 
 <hr class="rule">
-
 <!-- NEWS -->
 <div id="news" class="sec-dark">
 <div class="wrap">
   <div class="sec-label">Latest</div>
   <h2>News</h2>
   <div class="news-grid">
+    <div class="news-card">
+      <div class="news-meta">
+        <span class="news-date">August 2026</span>
+        <span class="news-pill code">Code</span>
+      </div>
+      <div class="news-title">MADGRAV — our multilevel anomaly-detection pipeline for gravitational-wave searches — is now on GitHub. Results from a four-epoch validation campaign on public LIGO data to follow with the upcoming publication.</div>
+      <a href="https://github.com/ginguglia/MADGRAV" target="_blank" class="news-link">Repository →</a>
+    </div>
     <div class="news-card">
       <div class="news-meta">
         <span class="news-date">June 2026</span>
